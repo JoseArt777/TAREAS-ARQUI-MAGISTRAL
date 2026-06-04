@@ -1,0 +1,15 @@
+# Archivos objeto y ejecutables compilados
+*.o
+hello
+printf_example
+test
+test_manual
+test_gcc
+02_equ
+03_align
+04_align16
+05_ldr
+06_ldroffset
+07_str
+08_ascii
+09_byte
