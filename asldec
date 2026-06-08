@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Asegurar el socket de Docker para Colima
+export DOCKER_HOST="unix://${HOME}/.colima/default/docker.sock"
+
+# Ejecutar la compilación y ejecución interactiva (con -i) en Docker
+docker run -i --rm -v "$(pwd)":/workspace arm64-asm-env sh -c "
+    as $1.s -o $1.o 2>/dev/null
+    ld $1.o -o $1 2>/dev/null
+    ./$1
+" 2>/dev/null
+exit_code=$?
+
+# Limpiar archivos temporales
+rm -f "$1.o" "$1"
+
+# Imprimir el código de retorno
+echo $exit_code
