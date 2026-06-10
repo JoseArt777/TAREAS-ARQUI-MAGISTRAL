@@ -13,3 +13,8 @@ test_gcc
 07_str
 08_ascii
 09_byte
+23_mod
+24_compare
+25_compound
+26_compound_triple
+27_if

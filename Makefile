@@ -6,13 +6,13 @@ GCC = aarch64-linux-gnu-gcc
 QEMU = qemu-aarch64
 QEMU_LIB = /usr/aarch64-linux-gnu
 
-.PHONY: all clean run_hello run_printf run_suma
+.PHONY: all clean run_hello run_printf run_suma run_23_mod run_24_compare run_25_compound run_26_compound_triple run_27_if
 
-all: hello printf_example suma_digitos 10_str64 11_print 12_read 13_brk 14_add_imm 15_add_array 16_complement 17_oddand 18_sensororr 19_divlsr 20_mullsl 21_cleanand 22_mul32
+all: hello printf_example suma_digitos 10_str64 11_print 12_read 13_brk 14_add_imm 15_add_array 16_complement 17_oddand 18_sensororr 19_divlsr 20_mullsl 21_cleanand 22_mul32 23_mod 24_compare 25_compound 26_compound_triple 27_if
 
 # Compilación de Hello World puro (con Syscalls)
-hello: hello.s
-	$(AS) hello.s -o hello.o
+hello: 01_hello.s
+	$(AS) 01_hello.s -o hello.o
 	$(LD) hello.o -o hello
 
 # Compilación usando la biblioteca estándar de C (printf, etc.)
@@ -89,6 +89,31 @@ suma_digitos: suma_digitos.s
 	$(AS) 22_mul32.s -o 22_mul32.o
 	$(LD) 22_mul32.o -o 22_mul32
 
+# Compilación de Ejemplo 23 (Modulo operation)
+23_mod: 23_mod.s
+	$(AS) 23_mod.s -o 23_mod.o
+	$(LD) 23_mod.o -o 23_mod
+
+# Compilación de Ejemplo 24 (Compare NZCV flags)
+24_compare: 24_compare.s
+	$(AS) 24_compare.s -o 24_compare.o
+	$(LD) 24_compare.o -o 24_compare
+
+# Compilación de Ejemplo 25 (Compound condition)
+25_compound: 25_compound.s
+	$(AS) 25_compound.s -o 25_compound.o
+	$(LD) 25_compound.o -o 25_compound
+
+# Compilación de Ejemplo 26 (Compound triple condition)
+26_compound_triple: 26_compound_triple.s
+	$(AS) 26_compound_triple.s -o 26_compound_triple.o
+	$(LD) 26_compound_triple.o -o 26_compound_triple
+
+# Compilación de Ejemplo 27 (If conditions)
+27_if: 27_if.s
+	$(AS) 27_if.s -o 27_if.o
+	$(LD) 27_if.o -o 27_if
+
 run_hello: hello
 	$(QEMU) ./hello
 
@@ -137,6 +162,21 @@ run_21_cleanand: 21_cleanand
 run_22_mul32: 22_mul32
 	@$(QEMU) ./22_mul32; echo "Retorno del programa (codigo de retorno): $$?"
 
+run_23_mod: 23_mod
+	@$(QEMU) ./23_mod; echo "Retorno del programa (codigo de retorno): $$?"
+
+run_24_compare: 24_compare
+	@$(QEMU) ./24_compare; echo "Retorno del programa (codigo de retorno): $$?"
+
+run_25_compound: 25_compound
+	@$(QEMU) ./25_compound; echo "Retorno del programa (codigo de retorno): $$?"
+
+run_26_compound_triple: 26_compound_triple
+	@$(QEMU) ./26_compound_triple; echo "Retorno del programa (codigo de retorno): $$?"
+
+run_27_if: 27_if
+	@$(QEMU) ./27_if; echo "Retorno del programa (codigo de retorno): $$?"
+
 clean:
-	rm -f *.o hello printf_example suma_digitos 10_str64 11_print 12_read 13_brk 14_add_imm 15_add_array 16_complement 17_oddand 18_sensororr 19_divlsr 20_mullsl 21_cleanand 22_mul32
+	rm -f *.o hello printf_example suma_digitos 10_str64 11_print 12_read 13_brk 14_add_imm 15_add_array 16_complement 17_oddand 18_sensororr 19_divlsr 20_mullsl 21_cleanand 22_mul32 23_mod 24_compare 25_compound 26_compound_triple 27_if
 

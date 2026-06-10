@@ -10,6 +10,7 @@ Este documento recopila de manera detallada el contenido de la serie de 5 videos
 3. [Video 3: Instrucciones de Carga (Load), Almacenamiento (Store) y Directivas](#video-3-instrucciones-de-carga-load-almacenamiento-store-y-directivas)
 4. [Video 4: Llamadas al Sistema (Syscalls) y Operaciones de Memoria (Ejemplos 10 al 15)](#video-4-llamadas-al-sistema-syscalls-y-operaciones-de-memoria-ejemplos-10-al-15)
 5. [Video 5: Operaciones Aritméticas, Lógicas y de Datos (Ejemplos 16 al 23)](#video-5-operaciones-aritméticas-lógicas-y-de-datos-ejemplos-16-al-23)
+6. [Video 6: Comparaciones, Condiciones Compuestas y Estructuras Condicionales (Ejemplos 24 al 27)](#video-6-comparaciones-condiciones-compuestas-y-estructuras-condicionales-ejemplos-24-al-27)
 
 ---
 
@@ -303,3 +304,25 @@ ARM64 no tiene una instrucción nativa directa para calcular el módulo ($x \pmo
 4. Resta el producto obtenido del dividendo original: `sub x2, x0, x2` ($10 - 9 = 1$).
 5. Mueve el resultado a `x0` para retornarlo.
 * Resultado obtenido: `1`.
+
+---
+
+## Video 6: Comparaciones, Condiciones Compuestas e IF (Ejemplos 24 al 27)
+
+Este video explica cómo hacer comparaciones en ARM64, leer las banderas del procesador (`nzcv`), evaluar varias condiciones juntas con AND y simular un `if` con saltos condicionales (`branch`).
+
+### Explicación de los Ejemplos
+
+#### Ejemplo 24: Comparación y banderas NZCV (`24_compare.s`)
+Compara `10` y `20` con `cmp x1, x2` (que resta $10-20$ activando banderas). Pasa el registro `nzcv` a `x0` con `mrs` y lo desplaza 28 bits a la derecha (`lsr`). Como da negativo, se activa la bandera N y retorna `8` en decimal.
+
+#### Ejemplo 25: Condición compuesta doble (`25_compound.s`)
+Verifica si `15` está en el rango entre `10` y `20`. Compara `15 > 10` guardando el resultado en `x3` con `cset gt` y `15 < 20` guardando en `x4` con `cset lt`. Junta ambas con un `and` en `x0` para retornar `1` (verdadero).
+
+#### Ejemplo 26: Condición compuesta triple (`26_compound_triple.s`)
+Igual al anterior, pero añade una tercera comparación para ver si `15` es diferente de `15` usando `cset x6, ne`. Al juntar las tres condiciones con `and`, retorna `0` (falso) porque no son diferentes. Si se cambia `x3` a `20`, sí retorna `1`.
+
+#### Ejemplo 27: Sentencia condicional - IF (`27_if.s`)
+Simula un `if` de manera eficiente negando la condición: compara `10` y `5` con `cmp x0, x1` y salta al final si es menor (`b.lt endif`). Como no es menor, hace la suma y retorna `15`. Si cambiamos `x1` a `15`, el salto se cumple y retorna el `10` original.
+
+

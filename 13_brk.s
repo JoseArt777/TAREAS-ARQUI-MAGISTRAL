@@ -26,6 +26,3 @@ _start:
 	ldr x0, [x2]	// x0 = *ptr
 	mov x8, #93	// syscall exit
 	svc #0
-
-
-global
