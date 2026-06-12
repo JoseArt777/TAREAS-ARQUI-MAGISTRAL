@@ -1,3 +1,4 @@
+// En este programa usé if, else if y else para ver si el número que le pasamos es positivo, negativo o cero (neutro).
 .global _start
 
 .data

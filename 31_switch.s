@@ -1,3 +1,4 @@
+// Para este ejercicio simulé un switch-case comparando un valor con 1, 2 o 3 e imprimiendo el ASCII correspondiente.
 .global _start
 
 .bss

@@ -1,3 +1,4 @@
+// En este ejercicio armé un if simple para checar si un número es natural (o sea, mayor o igual a cero).
 .global _start
 
 .data

@@ -1,3 +1,4 @@
+// Acá armé un if-else para verificar si un número es par o impar haciendo un AND con 1.
 .global _start
 
 .data
