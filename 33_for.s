@@ -4,7 +4,7 @@ _start:
     mov x0, #0             // initialization
     mov x1, #9
     mov x2, #3
-
+    
 for:                       // for (x1 = 9; x1 >= 0; x1 = x1 - x2)
     cmp x1, #0
     ble end
